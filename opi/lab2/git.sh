@@ -1,24 +1,8 @@
 #!/bin/bash
 
-# Очистка ненужных данных и backup .git
-cp -r .git .rotter
-cp .gitignore .rotterignore
 
-rm -rf .git
-rm -f .gitignore
-echo "- Создан бэкап .git"
-
-find src -type f ! -name '.keep' -delete
-echo "- src очищен"
-
-
-# Создание репозитория и начальная ревизия (r0)
 git init
 echo "- git init"
-
-
-# Настройка .git/config
-echo -e "\n[merge]\n\ttool = nano" >> .git/config
 
 
 # Настройка пользователей
@@ -28,24 +12,6 @@ echo "- Пользователь red создан"
 
 
 git checkout -b branch1
-
-# Новый .gitignore {
-echo ".resources" > .gitignore
-echo ".rotter" >> .gitignore
-echo "commits" >> .gitignore
-echo "docs" >> .gitignore
-echo "src/.keep" >> .gitignore
-echo ".editorconfig" >> .gitignore
-echo ".rotterignore" >> .gitignore
-echo "git.sh" >> .gitignore
-echo "svn.sh" >> .gitignore
-echo ".gitattributes" >> .gitignore
-echo "LICENSE" >> .gitignore
-echo "README.md" >> .gitignore
-echo "return-my-git-plz.sh" >> .gitignore
-git add .gitignore
-echo "- Новый .gitignore создан"
-# }
 
 # Ревизия r0 (пользователь 1) {
 unzip -o commits/commit0.zip -d src
@@ -113,11 +79,6 @@ git checkout branch1
 # git merge --no-commit branch3 -Xtheirs
 
 git merge --no-commit branch3
-
-
-##
-## ИСПРАВЛЕНИЕ КОНФЛИКТА ВРУЧНУЮ
-##
 
 git add .
 echo "- Слияние r6 и r5"
