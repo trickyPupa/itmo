@@ -11,6 +11,7 @@ mkdir -p "$SVN_REPO" "$WORKING_DIR"
 # Инициализация репозитория
 svnadmin create "$SVN_REPO"
 svn mkdir "file://$SVN_REPO/trunk" "file://$SVN_REPO/branches" "file://$SVN_REPO/tags" -m "лооол"
+svnserve -d -r "$SVN_REPO"
 
 # 0 -- init коммит (красный юзер)
 svn checkout "file://$SVN_REPO/trunk" "$WORKING_DIR/trunk"
@@ -50,7 +51,7 @@ svn commit --username red_user -m "коммит4 Взорвите Мурино"
 # 5 -- коммит в транке после 4 (красный юзер)
 cp -r "$COMMITS_DIR/5"/* .
 svn add --force .
-svn commit --username red_user -m "Коммит 5"
+svn commit --username red_user -m "Коммит 5 спасите Б6"
 
 # 6 -- коммит в бренче2 после 2 (синий юзер)
 cd "$WORKING_DIR/branch2"
@@ -110,22 +111,20 @@ svn commit --username blue_user -m "коммит13 финал?"
 cd "$WORKING_DIR/trunk"
 svn update
 svn merge --accept postpone "file://$SVN_REPO/branches/branch1"
-cp -r "$COMMITS_DIR/14"/* .
-svn add --force .
-svn commit --username red_user -m "коммит14 твоя следующая фраза -- мердж конфликт"
 
-
-svn delete F.java.merge-left.r4
-svn delete F.java.working
-svn delete K.java.merge-left.r4
-svn cleanup
-
-cp -r "$COMMITS_DIR/14"/* .
-svn add --force .
 svn resolve --accept working F.java
 svn resolve --accept working K.java
 svn resolve --accept working jYzbZGr65h.ldT
-svn commit --username red_user -m "коммит14 (minor changes)"
+
+cp -r "$COMMITS_DIR/14"/* .
+svn add --force .
+
+svn delete F.java.working
+svn delete K.java.working
+
+svn commit --username red_user -m "коммит14 твоя следующая фраза -- мердж конфликт"
+
+svn cleanup
 
 
 echo ...................................................................................
@@ -174,3 +173,11 @@ echo %%%%%%%%%@@@@@@@@@@@@@@@@@@@@@%#....................:-%@%@@@@@@@@@@@@@@@@@@
 echo %%%%%%%%%@@@@@@@@@@@@@@@@@@@@@@%:..........:.........=%%%@@@@@@@@@@@@@@@@@@@@@@@@@@
 echo %%%%%%%%%@@@@@@@@@@@@@@@@@@@@@@%+....................%%@@@@@@@@@@@@@@@@@@@@@@@@@@%@
 echo %%%%%%%@@@@@@@@@@@@@@@@@@@@@@@@@%...................-%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+echo " _______  ______ "
+echo "|__  /\ \/ / ___|"
+echo "  / /  \  / |    "
+echo " / /_  /  \ |___ "
+echo "/____|/_/\_\____|"
+
+svn status
